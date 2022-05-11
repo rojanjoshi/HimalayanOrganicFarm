@@ -1,0 +1,131 @@
+﻿@model BulkyBook.Models.ViewModels.EmployeeVm
+
+<form method="post" asp-action="Upsert" enctype="multipart/form-data">
+	<input asp-for="Employee.Id" hidden />
+	
+
+	<div class="row">
+		
+			<div class="border p-3 mt-4 row">
+		<div class="col-12 pb-2">
+			<h1 class="text-dark">@(Model.Employee.Id!=0?"Update": "Create")  Employee</h1>
+			<hr />
+		</div>
+		@*<div asp-validation-summary="All"></div>*@
+		<div class="mb-3">
+			<label asp-for="Employee.Name"></label>
+			<input asp-for="Employee.Name" class="form-control" />
+			<span asp-validation-for="Employee.Name" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<label asp-for="Employee.Email"></label>
+			<input asp-for="Employee.Email" class="form-control" />
+			<span asp-validation-for="Employee.Email" class="text-danger"></span>
+		</div>
+		<div class="mb-3 col-6">
+			<label asp-for="Employee.Phone"></label>
+			<input asp-for="Employee.Phone" class="form-control" />
+			<span asp-validation-for="Employee.Phone" class="text-danger"></span>
+		</div>
+		<div class="mb-3 col-6">
+			<label asp-for="Employee.Address"></label>
+			<input asp-for="Employee.Address" class="form-control" />
+			<span asp-validation-for="Employee.Address" class="text-danger"></span>
+		</div>
+
+
+		<div class="mb-3 col-6">
+			<label asp-for="Employee.DepartmentId"></label>
+			<select asp-for="Employee.DepartmentId" asp-items="@Model.DepartmentList" class="form-select">
+				<option disabled selected>--Select Department--</option>
+			</select>
+			<span asp-validation-for="Employee.DepartmentId" class="text-danger"></span>
+		</div>
+
+		<div class="mb-3 col-6">
+			<label asp-for="Employee.DesignationId"></label>
+			<select asp-for="Employee.DesignationId" asp-items="@Model.DesignationList" class="form-select">
+				<option disabled selected>--Select Designation--</option>
+			</select>
+			<span asp-validation-for="Employee.DesignationId" class="text-danger"></span>
+		</div>
+
+
+		<div class="mb-3 col-6">
+			<label asp-for="Employee.Salary"></label>
+			<input asp-for="Employee.Salary" class="form-control" id="txtsalary" />
+			<span asp-validation-for="Employee.Salary" class="text-danger"></span>
+		</div>
+
+
+		<div class="col-12">
+			@if (Model.Employee.Id != 0)
+			{
+				<button type="submit" class="btn btn-success" style="width:150px">Update</button>
+			}
+			else
+			{
+				<button type="submit"  class="btn btn-success" style="width:150px">Create</button>
+			}
+			<a asp-controller="Employee" asp-action="Index" class="btn btn-warning" style="width:153px">
+				Back to List
+			</a>
+		</div>
+
+
+
+	</div>
+		
+
+	</div>
+
+	
+
+
+
+
+
+</form>
+
+@section Scripts{
+	@{
+	<partial name="_ValidationScriptsPartial" />
+	}
+
+}
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+        
+
+        $("#Employee_DesignationId").change(function(){
+            var designationid = $("#Employee_DesignationId").val();
+            getempsalary(designationid);
+        });
+
+    });
+
+   
+    
+
+
+    function getempsalary(designationid){
+        $.ajax({
+            async:true,
+            type:'Get',
+            dataType:'JSON',
+            contentType:'application/json; charset=utf-8',
+            data:{designationid:designationid},
+            url:'/admin/employee/getempsalary',
+            success:function(data){
+                $("#txtsalary").val(parseInt(data));
+            },
+            error:function(){
+                alert("There is some problem to get the employee salary");
+            }
+        });
+    }
+
+
+</script>

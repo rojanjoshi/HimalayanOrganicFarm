@@ -1,0 +1,33 @@
+﻿<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h1 class="text-primary">Employee leave List</h1>
+		</div>
+        <div class="col-6 text-end">
+            <a asp-controller="Createleave" asp-action="Upsert" class="btn btn-success">
+               <i class="bi bi-plus-circle"></i> &nbsp; Create New Employee Leave
+			</a>
+		</div>
+	</div>
+    <br /><br />
+
+<table  id="tblData"  class="table table-bordered table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>Employee Id</th>
+            <th>Name</th>
+            <th>Leave Type</th>
+            <th>From (dd/mm/yy)</th>
+            <th>To (dd/mm/yy)</th>
+            <th>Action</th>
+        
+		</tr>
+	</thead>
+</table>
+</div>
+
+@section Scripts{
+    <script src="~/js/createleave.js"></script>
+}
+
+ 

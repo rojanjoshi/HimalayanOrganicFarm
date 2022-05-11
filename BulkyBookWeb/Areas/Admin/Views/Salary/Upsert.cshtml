@@ -1,0 +1,65 @@
+﻿@model BulkyBook.Models.ViewModels.SalaryVm
+
+<form method="post" asp-action="Upsert" enctype="multipart/form-data">
+	<input asp-for="Salary.Id" hidden />
+	
+
+	<div class="row">
+		
+			<div class="border p-3 mt-4 row">
+		<div class="col-12 pb-2">
+			<h1 class="text-dark">@(Model.Salary.Id!=0?"Update": "Create")  Salary</h1>
+			<hr />
+		</div>
+		@*<div asp-validation-summary="All"></div>*@
+
+
+			<div class="mb-3 col-6">
+			<label asp-for="Salary.DesignationId"></label>
+			<select asp-for="Salary.DesignationId" asp-items="@Model.DesignationList" class="form-select">
+				<option disabled selected>--Select Designation--</option>
+			</select>
+			<span asp-validation-for="Salary.DesignationId" class="text-danger"></span>
+		</div>
+
+		<div class="mb-3">
+			<label asp-for="Salary.TSalary"></label>
+			<input asp-for="Salary.TSalary" class="form-control" />
+			<span asp-validation-for="Salary.TSalary" class="text-danger"></span>
+		</div>
+	
+
+		
+		<div class="col-12">
+			@if (Model.Salary.Id != 0)
+			{
+				<button type="submit" class="btn btn-success" style="width:150px">Update</button>
+			}
+			else
+			{
+				<button type="submit" onclick="return ValidateInput()" class="btn btn-success" style="width:150px">Create</button>
+			}
+			<a asp-controller="Salary" asp-action="Index" class="btn btn-warning" style="width:153px">
+				Back to List
+			</a>
+		</div>
+
+	</div>
+		
+
+	</div>
+
+	
+
+
+
+
+
+</form>
+
+@section Scripts{
+	@{
+	<partial name="_ValidationScriptsPartial" />
+	}
+
+}

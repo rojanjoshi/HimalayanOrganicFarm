@@ -1,0 +1,126 @@
+﻿@model BulkyBook.Models.ViewModels.CreateLeaveVm
+
+<form method="post" asp-action="Upsert" enctype="multipart/form-data">
+	<input asp-for="CreateLeave.Id" hidden />
+	
+
+	<div class="row">
+		
+			<div class="border p-3 mt-4 row">
+		<div class="col-12 pb-2">
+			<h1 class="text-dark">@(Model.CreateLeave.Id!=0?"Update": "Create")  Employee Leave</h1>
+			<hr />
+		</div>
+		@*<div asp-validation-summary="All"></div>*@
+
+		
+		<div class="mb-3 col-6">
+			<label asp-for="CreateLeave.EmployeeId"></label>
+			<select asp-for="CreateLeave.EmployeeId" asp-items="@Model.EmployeeList" class="form-select">
+				<option disabled selected>--Select Employee--</option>
+			</select>
+			<span asp-validation-for="CreateLeave.EmployeeId" class="text-danger"></span>
+		</div>
+
+				<div class="mb-3 col-6">
+			<label asp-for="CreateLeave.LeaveId"></label>
+			<select asp-for="CreateLeave.LeaveId" asp-items="@Model.LeaveTypeList" class="form-select">
+				<option disabled selected>--Select Leave Type--</option>
+			</select>
+			<span asp-validation-for="CreateLeave.LeaveId" class="text-danger"></span>
+		</div>
+
+
+		<div class="mb-3">
+			<label asp-for="CreateLeave.Fromdate"></label>
+			<input asp-for="CreateLeave.Fromdate" class="form-control" />
+			<span asp-validation-for="CreateLeave.Fromdate" class="text-danger"></span>
+		</div>
+
+				<div class="mb-3">
+			<label asp-for="CreateLeave.Todate"></label>
+			<input asp-for="CreateLeave.Todate" class="form-control" />
+			<span asp-validation-for="CreateLeave.Todate" class="text-danger"></span>
+		</div>
+
+
+
+
+	
+
+
+
+
+
+
+		<div class="col-12">
+			@if (Model.CreateLeave.Id != 0)
+			{
+				<button type="submit" class="btn btn-success" style="width:150px">Update</button>
+			}
+			else
+			{
+				<button type="submit"  class="btn btn-success" style="width:150px">Create</button>
+			}
+			<a asp-controller="Createleave" asp-action="Index" class="btn btn-warning" style="width:153px">
+				Back to List
+			</a>
+		</div>
+
+
+
+	</div>
+		
+
+	</div>
+
+	
+
+
+
+
+
+</form>
+
+@section Scripts{
+	@{
+	<partial name="_ValidationScriptsPartial" />
+	}
+
+}
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+        
+
+        $("#Employee_DesignationId").change(function(){
+            var designationid = $("#Employee_DesignationId").val();
+            getempsalary(designationid);
+        });
+
+    });
+
+   
+    
+
+
+    function getempsalary(designationid){
+        $.ajax({
+            async:true,
+            type:'Get',
+            dataType:'JSON',
+            contentType:'application/json; charset=utf-8',
+            data:{designationid:designationid},
+            url:'/admin/employee/getempsalary',
+            success:function(data){
+                $("#txtsalary").val(parseInt(data));
+            },
+            error:function(){
+                alert("There is some problem to get the employee salary");
+            }
+        });
+    }
+
+
+</script>

@@ -1,0 +1,28 @@
+﻿<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h1 class="text-primary">Salary List</h1>
+		</div>
+        <div class="col-6 text-end">
+            <a asp-controller="Salary" asp-action="Upsert" class="btn btn-success">
+               <i class="bi bi-plus-circle"></i> &nbsp; Create New Salary
+			</a>
+		</div>
+	</div>
+    <br /><br />
+
+<table  id="tblData"  class="table table-bordered table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>Designation</th>
+            <th>Salary</th>
+        
+            <th>Action</th>
+		</tr>
+	</thead>
+</table>
+</div>
+
+@section Scripts{
+    <script src="~/js/salary.js"></script>
+}
